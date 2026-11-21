@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio · Modelo de toma de decisiones · Mariángel Monge Marín</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ee; --surface:#ffffff; --ink:#1c2230; --muted:#5d6577; --line:#e4e0d6;
+  --navy:#1f2a6b; --navy-soft:#e9ebf7; --accent:#b8481b; --eq:#f1f3fb; --ok:#1d7a52;
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --math:'Cambria Math','STIX Two Math','Noto Sans Math','DejaVu Sans',serif;
+  --nav:296px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#12151d;--surface:#1a1e29;--ink:#e8eaf0;--muted:#a0a8ba;--line:#2b3140;--navy:#aab6ff;--btnink:#12151d;--navy-soft:#242a45;--accent:#ff9a6b;--eq:#202638;--ok:#5fd3a0}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16.5px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+.eyebrow{font:600 11.5px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+/* ---------- side nav ---------- */
+.nav{position:fixed;inset:0 auto 0 0;width:var(--nav);background:var(--surface);border-right:1px solid var(--line);overflow-y:auto;padding:22px 14px 40px;z-index:30}
+.brand{display:block;text-decoration:none;padding:4px 10px 18px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.brand b{display:block;font:600 17px/1.25 var(--serif);color:var(--ink)}
+.brand span{font-size:12.5px;color:var(--muted)}
+.navlink{display:block;text-decoration:none;color:var(--ink);padding:8px 10px;border-radius:8px;font-size:14px;line-height:1.35;border-left:3px solid transparent}
+.navlink em{display:block;font:600 10.5px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-style:normal;margin-bottom:2px}
+.navlink:hover{background:var(--navy-soft)}
+.navlink.top{font-weight:600;margin-bottom:6px}
+.navlink.on{background:var(--navy-soft);border-left-color:var(--accent);font-weight:600}
+.sub{display:none;margin:2px 0 8px 18px;border-left:1px solid var(--line)}
+.navgroup.open .sub{display:block}
+.sub a{display:block;padding:4px 10px;font-size:12.8px;line-height:1.35;color:var(--muted);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub a:hover,.sub a.on{color:var(--navy)}
+.sub a.on{font-weight:600}
+.topbar{display:none}
+.scrim{display:none}
+
+/* ---------- main ---------- */
+main{margin-left:var(--nav);padding:0 clamp(18px,4vw,56px) 80px}
+.wrap{max-width:860px;margin:0 auto}
+.hero{padding:56px 0 30px}
+.hero-card{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:34px 36px}
+.hero h1{font:700 clamp(30px,4.4vw,46px)/1.08 var(--serif);margin:10px 0 14px;letter-spacing:-.01em;color:var(--navy)}
+.hero p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+.hero .who{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px}
+.hero .who b{font-weight:600}
+.logo{width:210px;border-radius:6px;background:#fff;padding:6px}
+.logo img{width:100%;height:auto;display:block}
+
+h2{font:700 clamp(26px,3.4vw,34px)/1.15 var(--serif);margin:6px 0 0;color:var(--ink);letter-spacing:-.005em}
+h3{font:600 23px/1.25 var(--serif);margin:46px 0 10px;color:var(--navy);scroll-margin-top:80px}
+h4{font:600 17.5px/1.3 var(--serif);margin:30px 0 6px;scroll-margin-top:80px}
+.sec{padding-top:64px;scroll-margin-top:20px}
+.sec-h{padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:6px}
+.sec h3:first-of-type{margin-top:28px}
+p{margin:0 0 14px}
+.lbl{font-weight:600;margin:20px 0 6px}
+.list{padding-left:1.3em;margin:0 0 16px}
+.list li{margin:5px 0}
+
+.eq{font-family:var(--math);font-size:16.5px;line-height:1.6;background:var(--eq);border-left:3px solid var(--navy);border-radius:0 8px 8px 0;padding:8px 14px;margin:8px 0;white-space:pre-line;overflow-x:auto}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin-right:.35em;font-size:.92em}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .3em 2px}
+.frac>span:last-child{padding-top:2px}
+.code{background:#14182a;color:#e6e9f5;border-radius:10px;padding:14px 16px;margin:6px 0 16px;overflow-x:auto;font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.code code{white-space:pre}
+
+.tablewrap{overflow-x:auto;margin:14px 0 20px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.45}
+th,td{padding:9px 13px;text-align:center;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--navy-soft);color:var(--navy);font-weight:600;font-size:13px}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--navy-soft) 35%,transparent)}
+
+.fig{margin:16px 0 22px}
+.fig img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:zoom-in}
+.fig.narrow img{max-width:640px}
+.fig.shot img{border-color:#2a2f45}
+
+/* ---------- summary ---------- */
+.block-h{margin:34px 0 4px}
+.lead{color:var(--muted);margin:6px 0 18px;font-size:15.5px}
+.idx{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.idx a{display:flex;flex-direction:column;gap:4px;height:100%;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:14.2px;line-height:1.45;transition:border-color .15s,transform .15s}
+.idx a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.sumwrap{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.sum{width:100%;border-collapse:collapse;font-size:13.8px;line-height:1.55}
+.sum th{background:var(--navy);color:#fff;text-align:left;padding:11px 14px;font:600 12px/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.sum td{vertical-align:top;text-align:left;padding:14px;border-bottom:1px solid var(--line);color:var(--ink)}
+.sum tr:last-child td{border-bottom:0}
+.sum td.wk{width:170px}
+.sum td.wk a{text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:3px}
+.sum td.wk b{font:600 15px/1.3 var(--serif)}
+.sum .go{font-size:12.5px;color:var(--navy);margin-top:4px}
+.sum td.sc{width:92px;text-align:center;white-space:nowrap}
+.pill{display:inline-block;min-width:46px;font:700 18px/1 var(--serif);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent);padding:8px 10px;border-radius:999px}
+.sum small{display:block;color:var(--muted);font-size:11.5px;margin-top:4px}
+.note{margin:14px 2px 0;font-size:13px;color:var(--muted)}
+
+/* ---------- eval card ---------- */
+.eval{margin:44px 0 0;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;padding:20px 24px 8px}
+.eval-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.score{display:flex;align-items:baseline;gap:4px}
+.score b{font:700 34px/1 var(--serif);color:var(--ok)}
+.score small{color:var(--muted);font-size:13px}
+.eval-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:8px 28px}
+.eval h5{font:600 12px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px}
+.eval p{font-size:15px;line-height:1.65}
+
+.btn{display:inline-block;margin:10px 0 4px;background:var(--navy);color:var(--btnink,#fff);text-decoration:none;font:600 14.5px var(--sans);padding:11px 18px;border-radius:10px}
+.btn:hover{filter:brightness(1.12)}
+.foot{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+
+/* ---------- lightbox ---------- */
+.lb{position:fixed;inset:0;background:rgba(10,12,20,.9);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;border-radius:8px;background:#fff}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .nav{transform:translateX(-102%);transition:transform .22s;box-shadow:none;width:min(86vw,320px)}
+  body.menu .nav{transform:none;box-shadow:0 0 40px rgba(0,0,0,.35)}
+  body.menu .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:25}
+  .topbar{display:flex;position:sticky;top:0;z-index:20;align-items:center;gap:12px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 14px;margin:0 calc(-1 * clamp(18px,4vw,56px))}
+  .topbar button{font:600 14px var(--sans);background:var(--navy);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+  .topbar span{font:600 14px var(--serif);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  main{margin-left:0}
+  .hero{padding-top:26px}
+  .hero-card{grid-template-columns:1fr;padding:24px}
+  .logo{width:160px;order:-1}
+  .sec{padding-top:48px}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .sum thead{display:none}
+  .sum,.sum tbody,.sum tr,.sum td{display:block;width:100%}
+  .sum tr{padding:6px 0 10px;border-bottom:1px solid var(--line)}
+  .sum tr:last-child{border-bottom:0}
+  .sum td{border:0;padding:6px 16px}
+  .sum td.wk,.sum td.sc{width:100%}
+  .sum td.sc{text-align:left;display:flex;align-items:baseline;gap:6px}
+  .sum td[data-l]::before{content:attr(data-l);display:block;font:600 11px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .sum td.sc::before{margin:0 6px 0 0}
+  .eval-grid{grid-template-columns:1fr}
+  .eval{padding:16px 16px 4px}
+}
+@media print{
+  .nav,.topbar,.scrim,.lb{display:none!important}
+  main{margin:0;padding:0}.sec{break-before:page}
+}
+</style>
+</head>
+<body>
+<aside class="nav" aria-label="Índice del portafolio">
+  <a class="brand" href="#top" data-go="top"><b>Portafolio</b><span>Modelo de toma de decisiones</span></a>
+  <a class="navlink top" href="#resumen" data-t="resumen"><span>Resumen y autoevaluación</span></a>
+<div class="navgroup" data-g="s1"><a class="navlink" href="#s1" data-t="s1"><em>Semana 1</em><span>Clasificación de los tipos de juegos</span></a>
+</div>
+<div class="navgroup" data-g="s4a"><a class="navlink" href="#s4a" data-t="s4a"><em>Semana 4</em><span>Segundo trabajo asincrónico</span></a>
+<div class="sub"><a href="#h1" data-t="h1">Ejercicio 1</a><a href="#h2" data-t="h2">Ejercicio 2</a><a href="#h3" data-t="h3">Ejercicio 3</a><a href="#h4" data-t="h4">Ejercicio 4</a></div>
+</div>
+<div class="navgroup" data-g="s4b"><a class="navlink" href="#s4b" data-t="s4b"><em>Semana 4</em><span>Matrices de pagos y criterios de selección de alternativa</span></a>
+<div class="sub"><a href="#h5" data-t="h5">Ejercicio del panadero</a><a href="#h8" data-t="h8">Práctica conjunto de criterios de selección de alternativa</a><a href="#h15" data-t="h15">Ejercicio tomador de decisiones</a></div>
+</div>
+<div class="navgroup" data-g="s9a"><a class="navlink" href="#s9a" data-t="s9a"><em>Semana 9</em><span>R for Data Science</span></a>
+<div class="sub"><a href="#h19" data-t="h19">Ejercicio sobre funciones en R</a><a href="#h20" data-t="h20">Curso completado</a></div>
+</div>
+<div class="navgroup" data-g="s9b"><a class="navlink" href="#s9b" data-t="s9b"><em>Semana 9</em><span>Programación lineal</span></a>
+<div class="sub"><a href="#h21" data-t="h21">Ejercicio 1. Reddy Mikks</a><a href="#h28" data-t="h28">Ejercicio 2. Granjas modelo</a><a href="#h36" data-t="h36">Ejercicio 3. Programas</a><a href="#h44" data-t="h44">Ejercicio 4. Inversión en la bolsa</a></div>
+</div>
+<div class="navgroup" data-g="s11"><a class="navlink" href="#s11" data-t="s11"><em>Semana 11</em><span>Método Simplex</span></a>
+<div class="sub"><a href="#h52" data-t="h52">Ejercicio 1</a><a href="#h53" data-t="h53">Ejercicio 2</a><a href="#h54" data-t="h54">Ejercicio 3</a><a href="#h55" data-t="h55">Ejercicio 4</a><a href="#h56" data-t="h56">Ejercicio 5. Programas y procesadores</a><a href="#h57" data-t="h57">Ejercicio 6 - Inversión en la bolsa</a></div>
+</div>
+<div class="navgroup" data-g="s12"><a class="navlink" href="#s12" data-t="s12"><em>Semana 12</em><span>Presentación: problemas de transporte</span></a>
+</div>
+<div class="navgroup" data-g="s15"><a class="navlink" href="#s15" data-t="s15"><em>Semana 15</em><span>Ensayo: cadenas de Markov</span></a>
+</div>
+<div class="navgroup" data-g="bib"><a class="navlink" href="#bib" data-t="bib"><em>Final</em><span>Bibliografía</span></a>
+</div>
+</aside>
+<div class="scrim" id="scrim"></div>
+<main id="top">
+  <div class="topbar"><button id="menuBtn" type="button" aria-label="Abrir índice">☰ Índice</button><span id="curTitle">Modelo de toma de decisiones</span></div>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div>
+          <span class="eyebrow">Escuela de Administración de Tecnología de Información</span>
+          <h1>Portafolio del curso<br>Modelo de toma de decisiones</h1>
+          <p>Trabajos, ejercicios y autoevaluaciones de cada semana, desde la teoría de juegos hasta las cadenas de Markov.</p>
+          <div class="who"><span><b>Elaborado por</b> Mariángel Monge Marín</span><span><b>Profesor</b> Federico Torres Carballo</span><span>Segundo semestre 2026</span></div>
+        </div>
+        <div class="logo"><img src="tec-logo.jpg" alt="Tecnológico de Costa Rica" width="644" height="148"></div>
+      </div>
+    </section>
+
+    <section id="resumen" class="sec" style="padding-top:20px">
+      <header class="sec-h"><span class="eyebrow">Índice y autoevaluación</span><h2>Resumen por semana</h2></header>
+      <h3 style="margin-top:26px">Índice por semana</h3>
+      <ul class="idx"><li><a href="#s1" data-go="s1"><span class="eyebrow">Semana 1</span><span>Presentación sobre la clasificación de los tipos de juegos</span></a></li><li><a href="#s4a" data-go="s4a"><span class="eyebrow">Semana 4</span><span>Cuatro ejercicios: maximin, árboles de juego, amenazas creíbles y oligopolio</span></a></li><li><a href="#s4b" data-go="s4b"><span class="eyebrow">Semana 4</span><span>Valor esperado, sensibilidad y criterios de decisión</span></a></li><li><a href="#s9a" data-go="s9a"><span class="eyebrow">Semana 9</span><span>Curso R for Data Science y función en R</span></a></li><li><a href="#s9b" data-go="s9b"><span class="eyebrow">Semana 9</span><span>Cuatro modelos de programación lineal resueltos en R</span></a></li><li><a href="#s11" data-go="s11"><span class="eyebrow">Semana 11</span><span>Seis ejercicios resueltos con Simplex y lpSolve</span></a></li><li><a href="#s12" data-go="s12"><span class="eyebrow">Semana 12</span><span>Presentación sobre transporte y asignación</span></a></li><li><a href="#s15" data-go="s15"><span class="eyebrow">Semana 15</span><span>Ensayo sobre cadenas de Markov y PageRank</span></a></li></ul>
+      <h3>Tabla resumen de autoevaluación</h3>
+      <p class="lead">Actividades desarrolladas, calificación de 0 a 100 y valoración de lo aprendido en cada semana. Cada fila lleva al trabajo completo.</p>
+      <div class="sumwrap"><table class="sum">
+        <thead><tr><th>Semana</th><th>Actividades desarrolladas</th><th>Calificación</th><th>Valoración de lo aprendido</th></tr></thead>
+        <tbody>
+<tr><td class="wk"><a href="#s1" data-go="s1"><span class="eyebrow">Semana 1</span><b>Clasificación de los tipos de juegos</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Realicé una presentación sobre la clasificación de los diferentes tipos de juegos dentro de la teoría de juegos, incluyendo sus características y ejemplos de aplicación.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Con este trabajo aprendí a diferenciar los tipos de juegos, como los cooperativos, no cooperativos, simétricos, asimétricos, de suma cero y no cero. También comprendí que estos conceptos se pueden aplicar a situaciones reales, donde las decisiones de una persona o empresa pueden afectar los resultados de otras.</td></tr>
+<tr><td class="wk"><a href="#s4a" data-go="s4a"><span class="eyebrow">Semana 4</span><b>Segundo trabajo asincrónico</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Resolví cuatro ejercicios relacionados con la teoría de juegos, aplicando estrategias maximin, árboles de juego, amenazas creíbles y vacías, y modelos de oligopolio como Cournot, Stackelberg y Cartel.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Estos ejercicios me ayudaron a comprender mejor cómo analizar las decisiones de diferentes jugadores y cómo sus estrategias pueden influir en los resultados. Aprendí a interpretar matrices de ganancias, identificar las mejores decisiones y entender la importancia de anticipar las acciones de los demás. También logré diferenciar los modelos de oligopolio y sus efectos sobre las ganancias de las empresas.</td></tr>
+<tr><td class="wk"><a href="#s4b" data-go="s4b"><span class="eyebrow">Semana 4</span><b>Matrices de pagos y criterios de selección de alternativa</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Resolví el ejercicio del panadero utilizando el valor esperado y el análisis de sensibilidad. Además, realicé ejercicios aplicando los criterios de dominación, Maximin, Maximax, Hurwicz, Minimax y Laplace para seleccionar alternativas.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Con estas actividades aprendí a comparar diferentes alternativas para tomar decisiones cuando existe incertidumbre. Comprendí cómo utilizar las probabilidades para calcular el valor esperado y cómo los cambios en estas pueden afectar una decisión. También aprendí que no siempre se obtiene la misma alternativa al aplicar diferentes criterios, ya que cada uno considera el riesgo de una manera distinta.</td></tr>
+<tr><td class="wk"><a href="#s9a" data-go="s9a"><span class="eyebrow">Semana 9</span><b>R for Data Science</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Completé el curso R for Data Science, donde estudié los fundamentos del lenguaje R. También realicé un ejercicio de programación creando una función que utiliza una estructura condicional para evaluar la calificación de una película.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Este curso me permitió aprender a utilizar R para trabajar con datos, variables, vectores, matrices y funciones. También conocí diferentes herramientas para organizar y manipular información. Considero que fue un aprendizaje útil porque me ayudó a comprender mejor cómo la programación puede facilitar el análisis de datos y la resolución de problemas.</td></tr>
+<tr><td class="wk"><a href="#s9b" data-go="s9b"><span class="eyebrow">Semana 9</span><b>Programación lineal</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Resolví cuatro ejercicios de programación lineal: Reddy Mikks, Granjas Modelo, asignación de programas a procesadores e inversión en la bolsa. Para cada uno planteé las variables, la función objetivo y las restricciones, utilizando R para encontrar las soluciones óptimas.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Con estos ejercicios aprendí a representar problemas reales mediante modelos matemáticos y a buscar soluciones que permitan aprovechar mejor los recursos. Comprendí cómo plantear correctamente las restricciones y utilizar R para maximizar ganancias o minimizar costos y tiempos. Además, pude ver que la programación lineal se puede aplicar a situaciones muy diferentes, desde la producción hasta las inversiones.</td></tr>
+<tr><td class="wk"><a href="#s11" data-go="s11"><span class="eyebrow">Semana 11</span><b>Método Simplex</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Resolví seis ejercicios relacionados con el método Simplex, planteando funciones objetivo, restricciones y tablas iniciales. También utilicé R y la biblioteca lpSolve para obtener e interpretar los resultados de los diferentes problemas.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Estos ejercicios me ayudaron a comprender mejor cómo funciona el método Simplex y cómo se utiliza para encontrar soluciones óptimas. Aprendí a organizar los problemas en forma tabular y a interpretar los resultados obtenidos en R. También comprendí que algunos problemas pueden tener soluciones no acotadas y que es importante revisar las restricciones antes de tomar una decisión.</td></tr>
+<tr><td class="wk"><a href="#s12" data-go="s12"><span class="eyebrow">Semana 12</span><b>Presentación: problemas de transporte</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Realicé una presentación sobre los problemas de transporte y asignación en programación lineal, explicando sus principales características, diferencias y aplicaciones.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Con esta presentación aprendí a diferenciar los problemas de transporte y asignación. Comprendí que los primeros buscan distribuir productos de la manera más eficiente, mientras que los segundos se enfocan en asignar tareas a diferentes recursos. También entendí cómo estos modelos pueden ayudar a las empresas a optimizar sus recursos y tomar mejores decisiones.</td></tr>
+<tr><td class="wk"><a href="#s15" data-go="s15"><span class="eyebrow">Semana 15</span><b>Ensayo: cadenas de Markov</b><span class="go">Ver trabajo →</span></a></td>
+<td data-l="Actividades">Observé el video de Veritasium sobre las cadenas de Markov y elaboré un ensayo relacionado con su aplicación en el algoritmo PageRank de Google y su importancia en la toma de decisiones.</td><td class="sc" data-l="Calificación"><span class="pill">100</span><small>/100</small></td><td data-l="Lo aprendido">Esta actividad me permitió comprender cómo las cadenas de Markov utilizan probabilidades para analizar diferentes situaciones. Me pareció muy interesante descubrir cómo se aplican en algo tan cotidiano como las búsquedas de Google. Además, aprendí que los modelos matemáticos no solamente sirven para resolver ejercicios, sino que también tienen aplicaciones importantes en la tecnología y en la toma de decisiones.</td></tr>
+        </tbody></table></div>
+    </section>
+
+<section id="s1" class="sec" data-s="s1"><header class="sec-h"><span class="eyebrow">Semana 1</span><h2>Clasificación de los tipos de juegos</h2></header><p>Presentación de Clasificación de los Tipos de Juegos</p>
+<a class="btn" href="https://canva.link/kni22ul20qjumk7" target="_blank" rel="noopener">Abrir la presentación en Canva ↗</a>
+<div class="eval" id="s1-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Realicé una presentación sobre la clasificación de los diferentes tipos de juegos dentro de la teoría de juegos, incluyendo sus características y ejemplos de aplicación.</p></div><div><h5>Valoración de lo aprendido</h5><p>Con este trabajo aprendí a diferenciar los tipos de juegos, como los cooperativos, no cooperativos, simétricos, asimétricos, de suma cero y no cero. También comprendí que estos conceptos se pueden aplicar a situaciones reales, donde las decisiones de una persona o empresa pueden afectar los resultados de otras.</p></div></div></div></section>
+<section id="s4a" class="sec" data-s="s4a"><header class="sec-h"><span class="eyebrow">Semana 4</span><h2>Segundo trabajo asincrónico</h2></header><h3 id="h1">Ejercicio 1</h3>
+<figure class="fig narrow"><img src="p05-0.jpg" width="1034" height="740" alt="Imagen: Ejercicio 1" loading="lazy"></figure>
+<ul class="list">
+<li><strong>Estrategia Maximin:</strong> La estrategia maximin consiste en seleccionar la alternativa que ofrece el mayor de los resultados mínimos posibles, es decir, cada jugador identifica el peor resultado de cada estrategia y elige aquella que le garantiza la mayor ganancia en ese peor escenario.</li>
+<li><strong>Estrategia Maximin de “El gringo”</strong></li>
+</ul>
+<div class="tablewrap"><table><thead><tr><th>Estrategia del Gringo</th><th>Pagos posibles</th><th>Mínimo</th></tr></thead><tbody><tr><td>A</td><td>9, 1, 2</td><td>1</td></tr><tr><td>B</td><td>6, 5, 4</td><td>4</td></tr><tr><td>C</td><td>7, 8, 3</td><td>3</td></tr></tbody></table></div>
+<p>El máximo entre los mínimos(1, 4, 3) es 4.</p>
+<div class="eq">Estrategia maximin de El gringo = B</div>
+<p>Entonces con B, sabe que incluso en el peor escenario recibirá $4.</p>
+<ul class="list">
+<li><strong>Estrategia maximin de “El monje”</strong></li>
+</ul>
+<div class="tablewrap"><table><thead><tr><th>Estrategia del Monje</th><th>Pagos posibles</th><th>Mínimo</th></tr></thead><tbody><tr><td>A</td><td>1, 4, 3</td><td>1</td></tr><tr><td>B</td><td>9, 5, 2</td><td>2</td></tr><tr><td>C</td><td>8, 6, 7</td><td>6</td></tr></tbody></table></div>
+<p>El máximo entre los mínimos(1, 2, 6) es 6.</p>
+<div class="eq">Estrategia maximin de El Monje = C</div>
+<p>Entonces con C, sabe que incluso en el peor escenario recibirá $6.</p>
+<ul class="list">
+<li><strong>Equilibrio</strong></li>
+</ul>
+<p>Las estrategias elegidas son B por el gringo y C por el monje, entonces buscamos la intersección en la matriz y el equilibrio sería (B, C), con un pago de $4 para El gringo y $6 para El monje.</p>
+<figure class="fig narrow"><img src="p06-0.jpg" width="1022" height="318" alt="Imagen: Ejercicio 1" loading="lazy"></figure>
+<h3 id="h2">Ejercicio 2</h3>
+<figure class="fig narrow"><img src="p07-0.jpg" width="1028" height="686" alt="Imagen: Ejercicio 2" loading="lazy"></figure>
+<p class="lbl">Representación árbol de juego</p>
+<figure class="fig"><img src="p07-1.jpg" width="1500" height="792" alt="Imagen: Representación árbol de juego" loading="lazy"></figure>
+<p class="lbl">Análisis</p>
+<p>Como la Empresa 1 juega primero, debe anticipar cuál será la respuesta de la Empresa 2 ante cada una de sus decisiones.</p>
+<p>Si la Empresa 1 elige Crujiente, la Empresa 2 preferirá producir Dulce, porque obtendría 20 en lugar de -5. En este caso, el resultado sería (10,20).</p>
+<p>Si la Empresa 1 elige Dulce, la Empresa 2 preferirá producir Crujiente, porque obtendría 10 en lugar de -5. En este caso, el resultado sería (20,10).</p>
+<p>Por lo tanto, anticipando las decisiones de la Empresa 2, la Empresa 1 elegirá Dulce, ya que así obtiene un beneficio de 20, mientras que si eligiera Crujiente obtendría solamente 10.</p>
+<p>Entonces la Empresa 1 producirá cereal Dulce y la Empresa 2 producirá cereal Crujiente, obteniendo beneficios de 20 y 10, respectivamente. El resultado final es (20,10). Esto muestra la ventaja de mover primero, ya que la Empresa 1 puede anticipar la reacción de la Empresa 2 y escoger la estrategia que le proporciona el mayor beneficio.</p>
+<h3 id="h3">Ejercicio 3</h3>
+<figure class="fig narrow"><img src="p09-0.jpg" width="1030" height="684" alt="Imagen: Ejercicio 3" loading="lazy"></figure>
+<p>Far Out Engines puede amenazar a Race Car Motors con producir motores grandes independientemente de la decisión que tome esta última; sin embargo, la amenaza no sería creíble. Si Race Car Motors produce autos pequeños, Far Out obtendría una ganancia de 3 produciendo motores pequeños y solamente 1 produciendo motores grandes, por lo que preferiría producir motores pequeños. En cambio, si Race Car Motors produce autos grandes, Far Out sí preferiría producir motores grandes, ya que obtendría 8 en lugar de 3. Por tanto, la amenaza de producir motores grandes independientemente de lo que haga Race Car Motors es una amenaza vacía o no creíble.</p>
+<figure class="fig narrow"><img src="p10-0.jpg" width="1026" height="628" alt="Imagen: Ejercicio 3" loading="lazy"></figure>
+<p>Se modificó la ganancia de Far Out Engines en la combinación Motores grandes-Autos pequeños, pasando de 1 a 4. De esta manera, si Race Car Motors produce autos pequeños, Far Out prefiere motores grandes porque obtiene 4 en lugar de 3; y si Race Car Motors produce autos grandes, también prefiere motores grandes porque obtiene 8 en lugar de 3. Por lo tanto, la amenaza de producir motores grandes independientemente de la decisión de Race Car Motors sí sería creíble.</p>
+<h3 id="h4">Ejercicio 4</h3>
+<figure class="fig narrow"><img src="p11-0.jpg" width="1028" height="688" alt="Imagen: Ejercicio 4" loading="lazy"></figure>
+<p class="lbl">La demanda del mercado es: P=30-Q</p>
+<p>Como hay dos empresas, la cantidad total producida es lo que produce la empresa A más lo que produce la empresa B: Q = QA + QB</p>
+<p>Además, como el costo marginal es 0, para obtener la ganancia de cada empresa se multiplica el precio por la cantidad que produce cada una.</p>
+<p>Con las opciones de producción de 7,5, 10 y 15, se obtiene la siguiente matriz de ganancias:</p>
+<div class="tablewrap"><table><thead><tr><th>Empresa A / Empresa B</th><th>7,5</th><th>10</th><th>15</th></tr></thead><tbody><tr><td>7,5</td><td>(112,5 ; 112,5)</td><td>(93,75 ; 125)</td><td>(56,25 ; 112,5)</td></tr><tr><td>10</td><td>(125 ; 93,75)</td><td>(100 ; 100)</td><td>(50 ; 75)</td></tr><tr><td>15</td><td>(112,5 ; 56,25)</td><td>(75 ; 50)</td><td>(0;0)</td></tr></tbody></table></div>
+<p>Cournot: Como las dos empresas deciden al mismo tiempo, el resultado es que ambas producen 10 unidades. Así, cada una obtiene una ganancia de 100.</p>
+<p>Stackelberg: En este caso, la empresa A decide primero. A le conviene producir 15 unidades, porque sabe que la mejor respuesta de B será producir 7,5. Con esta decisión, A obtiene una ganancia de 112,5 y B una ganancia de 56,25.</p>
+<p>Cartel: En este caso las empresas cooperan y buscan obtener la mayor ganancia entre las dos. La mejor opción es que cada una produzca 7,5 unidades, ya que así cada empresa gana 112,5, para una ganancia total de 225.</p>
+<p class="lbl">Resultados finales:</p>
+<ul class="list">
+<li><strong>Cournot:</strong> A = 10, B = 10 → ganancias (100 ; 100).</li>
+<li><strong>Stackelberg:</strong> A = 15, B = 7,5 → ganancias (112,5 ; 56,25).</li>
+<li><strong>Cartel:</strong> A = 7,5, B = 7,5 → ganancias (112,5 ; 112,5).</li>
+</ul>
+<div class="eval" id="s4a-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Resolví cuatro ejercicios relacionados con la teoría de juegos, aplicando estrategias maximin, árboles de juego, amenazas creíbles y vacías, y modelos de oligopolio como Cournot, Stackelberg y Cartel.</p></div><div><h5>Valoración de lo aprendido</h5><p>Estos ejercicios me ayudaron a comprender mejor cómo analizar las decisiones de diferentes jugadores y cómo sus estrategias pueden influir en los resultados. Aprendí a interpretar matrices de ganancias, identificar las mejores decisiones y entender la importancia de anticipar las acciones de los demás. También logré diferenciar los modelos de oligopolio y sus efectos sobre las ganancias de las empresas.</p></div></div></div></section>
+<section id="s4b" class="sec" data-s="s4b"><header class="sec-h"><span class="eyebrow">Semana 4</span><h2>Matrices de pagos y criterios de selección de alternativa</h2></header><h3 id="h5">Ejercicio del panadero</h3>
+<figure class="fig"><img src="p13-0.jpg" width="1500" height="841" alt="Imagen: Ejercicio del panadero" loading="lazy"></figure>
+<figure class="fig"><img src="p14-0.jpg" width="1500" height="1012" alt="Imagen: Ejercicio del panadero" loading="lazy"></figure>
+<figure class="fig narrow"><img src="p15-0.jpg" width="1034" height="684" alt="Imagen: Ejercicio del panadero" loading="lazy"></figure>
+<h4 id="h6">Valor esperado</h4>
+<p>Se debe hacer pago × probabilidad, y sumamos.</p>
+<p class="lbl">A1</p>
+<div class="eq">𝑉𝐸(𝐴1) = 660(0.10) + 660(0.20) + 660(0.40) + 660(0.20) + 660(0.10)</div>
+<div class="eq">𝑉𝐸(𝐴1) = 660</div>
+<p class="lbl">A2</p>
+<div class="eq">𝑉𝐸(𝐴2) = 420(0.10) + 1320(0.20) + 1320(0.40) + 1320(0.20) + 1320(0.10)</div>
+<div class="eq">𝑉𝐸(𝐴2) = 1230</div>
+<p class="lbl">A3</p>
+<div class="eq">𝑉𝐸(𝐴3) = 180(0.10) + 1080(0.20) + 1980(0.40) + 1980(0.20) + 1980(0.10)</div>
+<div class="eq">𝑉𝐸(𝐴3) = 1620</div>
+<p class="lbl">A4</p>
+<div class="eq">𝑉𝐸(𝐴4) = (− 60)(0.10) + 840(0.20) + 1740(0.40) + 2640(0.20) + 2640(0.10)</div>
+<div class="eq">𝑉𝐸(𝐴4) = 1650</div>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Valor esperado</th></tr></thead><tbody><tr><td>A1</td><td>₡660</td></tr><tr><td>A2</td><td>₡1230</td></tr><tr><td>A3</td><td>₡1620</td></tr><tr><td>A4</td><td>₡1650 ← mayor</td></tr></tbody></table></div>
+<p class="lbl">Decisión</p>
+<p>Como el criterio de valor esperado selecciona la alternativa con el mejor promedio ponderado, el panadero debería producir 4 docenas de pan (A4), porque tiene el mayor valor esperado: ₡1.650.</p>
+<h4 id="h7">Análisis de sensibilidad</h4>
+<p>Para realizar el análisis de sensibilidad se mantienen constantes las probabilidades que se consideran correctas:</p>
+<div class="eq">1 docena = 10%
+2 docenas = 20%
+5 docenas = 10%</div>
+<p>Estas probabilidades suman un 40%, por lo tanto, el 60% restante debe distribuirse entre las probabilidades de 3 y 4 docenas, que son las que presentan incertidumbre.</p>
+<p class="lbl">Se define:</p>
+<div class="eq">P(E3)=X</div>
+<p class="lbl">Por lo tanto:</p>
+<div class="eq">P(E4)=0,60-X</div>
+<p>Los valores esperados de las alternativas A1, A2 y A3 se mantienen en:</p>
+<div class="eq">VE(A1)=660</div>
+<div class="eq">VE(A2)=1230</div>
+<div class="eq">VE(A3)=1620</div>
+<p class="lbl">Para la alternativa A4:</p>
+<div class="eq">VE(A4)=(-60)(0,10)+(840)(0,20)+(1740)(X)+(2640)(0,60-X)+(2640)(0,10)</div>
+<p class="lbl">Simplificando:</p>
+<div class="eq">VE(A4)=2010-900X</div>
+<p>Para determinar el punto en que cambia la decisión, se iguala el valor esperado de A4 con el de A3:</p>
+<div class="eq">2010-900X=1620</div>
+<div class="eq">390=900X</div>
+<div class="eq">X=0,4333=43,33%</div>
+<p class="lbl">Por lo tanto:</p>
+<div class="eq">P(E3)=43,33%</div>
+<p>y:</p>
+<div class="eq">P(E4)= 60% - 43,33% = 16,67%</div>
+<p class="lbl">Conclusión</p>
+<p>El punto crítico se encuentra cuando la probabilidad de una demanda de 3 docenas es 43,33% y la de 4 docenas es 16,67%. En este punto, las alternativas A3 y A4 tienen el mismo valor esperado de ₡1.620.</p>
+<p>Si la probabilidad de una demanda de 3 docenas es menor a 43,33%, se mantiene la decisión de producir 4 docenas (A4). Si es mayor a 43,33%, la mejor decisión cambia a producir 3 docenas (A3). Esto muestra que la decisión inicial es sensible a cambios relativamente pequeños en las probabilidades de demanda de 3 y 4 docenas.</p>
+<h3 id="h8">Práctica conjunto de criterios de selección de alternativa</h3>
+<p class="lbl">Tabla en la que se trabajará:</p>
+<figure class="fig narrow"><img src="p18-0.jpg" width="984" height="530" alt="Imagen: Tabla en la que se trabajará:" loading="lazy"></figure>
+<h4 id="h9">1. Principio de dominación</h4>
+<p>El criterio de dominación establece que una alternativa se elimina cuando es peor o igual que otra alternativa en todos los estados de la naturaleza.</p>
+<p>Al comparar las alternativas, observamos que d3 domina a d2:</p>
+<div class="tablewrap"><table><thead><tr><th>Estado</th><th>d2</th><th>d3</th></tr></thead><tbody><tr><td>E1</td><td>54</td><td>79</td></tr><tr><td>E2</td><td>23</td><td>109</td></tr><tr><td>E3</td><td>61</td><td>107</td></tr><tr><td>E4</td><td>70</td><td>72</td></tr><tr><td>E5</td><td>19</td><td>54</td></tr><tr><td>E6</td><td>83</td><td>163</td></tr></tbody></table></div>
+<p>En todos los estados, d3 presenta un resultado mayor que d2.</p>
+<p>Resultado: se elimina d2, ya que está dominada por d3.</p>
+<h4 id="h10">2. Criterio Maximin o pesimista</h4>
+<p>Este criterio toma el peor resultado de cada alternativa y luego selecciona el mayor de esos resultados. Buscamos el mínimo de cada fila:</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Mínimo</th></tr></thead><tbody><tr><td>d1</td><td>34</td></tr><tr><td>d2</td><td>19</td></tr><tr><td>d3</td><td>54</td></tr><tr><td>d4</td><td>14</td></tr><tr><td>d5</td><td>10</td></tr></tbody></table></div>
+<div class="eq">max(34,19,54,14,10)=54</div>
+<p>Resultado: según Maximin, se selecciona d3, con un resultado de 54.</p>
+<h4 id="h11">3. Criterio Maximax u optimista</h4>
+<p>En Maximax buscamos el mejor resultado de cada alternativa y luego seleccionamos el mayor de todos.</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Máximo</th></tr></thead><tbody><tr><td>d1</td><td>131</td></tr><tr><td>d2</td><td>83</td></tr><tr><td>d3</td><td>163</td></tr><tr><td>d4</td><td>129</td></tr><tr><td>d5</td><td>140</td></tr></tbody></table></div>
+<div class="eq">max(131,83,163,129,140)=163</div>
+<p>Resultado: según Maximax, se selecciona d3, con un resultado de 163.</p>
+<h4 id="h12">4. Criterio de Hurwicz o del compromiso</h4>
+<p>Para Hurwicz se utiliza un coeficiente de optimismo. Siguiendo el ejemplo, utilizamos:</p>
+<div class="eq">O=0,3</div>
+<p class="lbl">La fórmula es:</p>
+<div class="eq">H=O(máximo)+(1-O)(mínimo)</div>
+<p class="lbl">Es decir:</p>
+<div class="eq">H=0,3(máx)+0,7(min)</div>
+<p>Este es el procedimiento indicado para Hurwicz.</p>
+<p class="lbl">d1:</p>
+<div class="eq">H1=(0,3)(131)+(0,7)(34)=63,1</div>
+<p class="lbl">d2:</p>
+<div class="eq">H2=(0,3)(83)+(0,7)(19)=38,2</div>
+<p class="lbl">d3:</p>
+<div class="eq">H3=(0,3)(163)+(0,7)(54)=86,7</div>
+<p class="lbl">d4:</p>
+<div class="eq">H4=(0,3)(129)+(0,7)(14)=48,5</div>
+<p class="lbl">d5:</p>
+<div class="eq">H5=(0,3)(140)+(0,7)(10)=49</div>
+<p class="lbl">Entonces:</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Hurwicz</th></tr></thead><tbody><tr><td>d1</td><td>63,1</td></tr><tr><td>d2</td><td>38,2</td></tr><tr><td>d3</td><td>86,7</td></tr><tr><td>d4</td><td>48,5</td></tr><tr><td>d5</td><td>49</td></tr></tbody></table></div>
+<p>Resultado: según Hurwicz, se selecciona d3, ya que obtiene el mayor valor: 86,7.</p>
+<h4 id="h13">5. Criterio Minimax o de Savage</h4>
+<p>Aquí debemos construir primero la matriz de pesar o pérdida de oportunidad. Se busca el valor máximo de cada columna y se le resta cada valor original.</p>
+<p class="lbl">Paso 1. Máximo de cada columna</p>
+<div class="tablewrap"><table><thead><tr><th></th><th>E1</th><th>E2</th><th>E3</th><th>E4</th><th>E5</th><th>E6</th></tr></thead><tbody><tr><td>Máximo</td><td>106</td><td>129</td><td>131</td><td>118</td><td>100</td><td>163</td></tr></tbody></table></div>
+<p class="lbl">Paso 2. Matriz de pesar</p>
+<p>Por ejemplo, para d1:</p>
+<div class="eq">106-88=18</div>
+<div class="eq">129-114=15</div>
+<p class="lbl">Y hacemos lo mismo con toda la matriz:</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>E1</th><th>E2</th><th>E3</th><th>E4</th><th>E5</th><th>E6</th><th>Máximo pesar</th></tr></thead><tbody><tr><td>d1</td><td>18</td><td>15</td><td>0</td><td>53</td><td>12</td><td>129</td><td>129</td></tr><tr><td>d2</td><td>52</td><td>106</td><td>70</td><td>48</td><td>81</td><td>80</td><td>106</td></tr><tr><td>d3</td><td>27</td><td>20</td><td>24</td><td>46</td><td>46</td><td>0</td><td>46</td></tr><tr><td>d4</td><td>92</td><td>0</td><td>27</td><td>0</td><td>0</td><td>142</td><td>142</td></tr><tr><td>d5</td><td>0</td><td>65</td><td>43</td><td>108</td><td>74</td><td>23</td><td>108</td></tr></tbody></table></div>
+<p>Ahora tomamos el mayor pesar de cada fila y seleccionamos el menor:</p>
+<div class="eq">min(129,106,46,142,108)=46</div>
+<p>Resultado: según Minimax, se selecciona d3, ya que tiene la menor pérdida de oportunidad máxima: 46. Este es justamente el procedimiento de seleccionar los máximos de cada fila de la matriz de pesar y luego escoger el menor.</p>
+<h4 id="h14">6. Criterio de Laplace</h4>
+<p>Laplace supone que todos los estados de la naturaleza son igualmente probables, por lo que se calcula el promedio simple de cada alternativa y se selecciona el mayor.</p>
+<p>d1:</p>
+<div class="eq"><span class="frac"><span>88+114+131+65+88+34</span><span>6</span></span> = 86,67</div>
+<p>d2:</p>
+<div class="eq"><span class="frac"><span>54+23+61+70+19+83</span><span>6</span></span> = 51,67</div>
+<p>d3:</p>
+<div class="eq"><span class="frac"><span>79+109+107+72+54+163</span><span>6</span></span> = 97,33</div>
+<p>d4:</p>
+<div class="eq"><span class="frac"><span>14+129+104+118+100+21</span><span>6</span></span> = 81</div>
+<p>d5:</p>
+<div class="eq"><span class="frac"><span>106+64+88+10+26+140</span><span>6</span></span> = 72,33</div>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Promedio</th></tr></thead><tbody><tr><td>d1</td><td>86.67</td></tr><tr><td>d2</td><td>51.67</td></tr><tr><td>d3</td><td>97.33</td></tr><tr><td>d4</td><td>81</td></tr><tr><td>d5</td><td>72.33</td></tr></tbody></table></div>
+<p>Resultado: según Laplace, se selecciona d3, ya que presenta el mayor promedio: 97,33.</p>
+<p class="lbl">Conclusión general</p>
+<p>En este caso, los diferentes criterios llevan a una conclusión bastante clara:</p>
+<div class="tablewrap"><table><thead><tr><th>Criterio</th><th>Decisión</th></tr></thead><tbody><tr><td>Dominación</td><td>Se elimina d2</td></tr><tr><td>Maximin</td><td>d3</td></tr><tr><td>Maximax</td><td>d3</td></tr><tr><td>Hurwicz O=0,3</td><td>d3</td></tr><tr><td>Minimax</td><td>d3</td></tr><tr><td>Laplace</td><td>d3</td></tr></tbody></table></div>
+<p>Por lo tanto, d3 es la alternativa más conveniente, ya que resulta seleccionada por todos los criterios que determinan una alternativa final. El principio de dominación, por su parte, permite descartar d2.</p>
+<h3 id="h15">Ejercicio tomador de decisiones</h3>
+<figure class="fig narrow"><img src="p25-0.jpg" width="990" height="610" alt="Imagen: Ejercicio tomador de decisiones" loading="lazy"></figure>
+<figure class="fig narrow"><img src="p26-0.jpg" width="992" height="636" alt="Imagen: Ejercicio tomador de decisiones" loading="lazy"></figure>
+<h4 id="h16">1. Criterio Maximin</h4>
+<p>En Maximin se toma primero el menor valor de cada alternativa y después se selecciona el mayor de esos valores.</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Menor valor</th></tr></thead><tbody><tr><td>d1</td><td>38</td></tr><tr><td>d2</td><td>42</td></tr><tr><td>d3</td><td>43</td></tr></tbody></table></div>
+<div class="eq">max(38,42,43)=43</div>
+<p>Decisión según Maximin: d3, porque tiene el mayor de los valores mínimos, 43.</p>
+<h4 id="h17">2. Criterio Maximax</h4>
+<p>En Maximax se identifica primero el mayor valor de cada alternativa y posteriormente se selecciona el mayor de todos.</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Mayor valor</th></tr></thead><tbody><tr><td>d1</td><td>80</td></tr><tr><td>d2</td><td>63</td></tr><tr><td>d3</td><td>68</td></tr></tbody></table></div>
+<div class="eq">max(80,63,68)=80</div>
+<p>Decisión según Maximax: d1, porque presenta el mayor resultado posible, 80.</p>
+<h4 id="h18">3. Criterio de Hurwicz</h4>
+<p class="lbl">El coeficiente de optimismo indicado es:</p>
+<div class="eq">alpha=0,75</div>
+<p class="lbl">Aplicamos la fórmula:</p>
+<div class="eq">H=alpha(max)+(1-alpha)(min)</div>
+<p class="lbl">Es decir:</p>
+<div class="eq">H=0,75(máx)+0,25(min)</div>
+<p class="lbl">d1</p>
+<div class="eq">Máximo = 80
+Mínimo = 38</div>
+<div class="eq">H1=(0,75)(80)+(0,25)(38)</div>
+<div class="eq">H1=69,5</div>
+<p class="lbl">d2</p>
+<div class="eq">Máximo = 63
+Mínimo = 42</div>
+<div class="eq">H2=(0,75)(63)+(0,25)(42)</div>
+<div class="eq">H2=57,75</div>
+<p class="lbl">d3</p>
+<div class="eq">Máximo = 68
+Mínimo = 43</div>
+<div class="eq">H3=(0,75)(68)+(0,25)(43)</div>
+<div class="eq">H3=61,75</div>
+<p class="lbl">Comparamos:</p>
+<div class="tablewrap"><table><thead><tr><th>Alternativa</th><th>Hurwicz</th></tr></thead><tbody><tr><td>d1</td><td>69.5</td></tr><tr><td>d2</td><td>57,75</td></tr><tr><td>d3</td><td>61,75</td></tr></tbody></table></div>
+<div class="eq">max(69,50; 57,75; 61,75)=69,50</div>
+<p>Decisión según Hurwicz: d1, ya que presenta el mayor resultado, 69,50.</p>
+<p>Conclusión general: Aplicando el criterio Maximin, se selecciona la alternativa d3, ya que presenta el mayor de los resultados mínimos, con un valor de 43. Según el criterio Maximax, se selecciona d1, debido a que posee el mayor resultado posible, con un valor de 80. Finalmente, al aplicar el criterio de Hurwicz con un coeficiente de optimismo de 0,75, se obtienen valores de 69,50 para d1, 57,75 para d2 y 61,75 para d3, por lo que se selecciona la alternativa d1.</p>
+<div class="eval" id="s4b-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Resolví el ejercicio del panadero utilizando el valor esperado y el análisis de sensibilidad. Además, realicé ejercicios aplicando los criterios de dominación, Maximin, Maximax, Hurwicz, Minimax y Laplace para seleccionar alternativas.</p></div><div><h5>Valoración de lo aprendido</h5><p>Con estas actividades aprendí a comparar diferentes alternativas para tomar decisiones cuando existe incertidumbre. Comprendí cómo utilizar las probabilidades para calcular el valor esperado y cómo los cambios en estas pueden afectar una decisión. También aprendí que no siempre se obtiene la misma alternativa al aplicar diferentes criterios, ya que cada uno considera el riesgo de una manera distinta.</p></div></div></div></section>
+<section id="s9a" class="sec" data-s="s9a"><header class="sec-h"><span class="eyebrow">Semana 9</span><h2>R for Data Science</h2></header><h3 id="h19">Ejercicio sobre funciones en R</h3>
+<p class="lbl">Enunciado</p>
+<p>Crear una función llamada isGoodRating que reciba como argumento la calificación de una película. La función debe evaluar la calificación utilizando una estructura if/else. Si la calificación es menor que 7, debe retornar &quot;NO&quot;; de lo contrario, debe retornar &quot;YES&quot;. Finalmente, probar la función utilizando las calificaciones 6 y 9.5.</p>
+<p class="lbl">Código:</p>
+<pre class="code"><code>isGoodRating &lt;- function(rating) {
+ if(rating &lt; 7) {
+  return(&quot;NO&quot;)
+ } else {
+  return(&quot;YES&quot;)
+ }
+}
+isGoodRating(6)
+isGoodRating(9.5)</code></pre>
+<p class="lbl">Resultado:</p>
+<pre class="code"><code>&#x27;NO&#x27;
+&#x27;YES&#x27;</code></pre>
+<h3 id="h20">Curso completado</h3>
+<figure class="fig"><img src="p31-0.jpg" width="1500" height="332" alt="Página del curso R for Data Science marcado como completado" loading="lazy"></figure>
+<figure class="fig narrow"><img src="p31-1.jpg" width="1042" height="804" alt="Certificado de finalización del curso R for Data Science" loading="lazy"></figure>
+<div class="eval" id="s9a-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Completé el curso R for Data Science, donde estudié los fundamentos del lenguaje R. También realicé un ejercicio de programación creando una función que utiliza una estructura condicional para evaluar la calificación de una película.</p></div><div><h5>Valoración de lo aprendido</h5><p>Este curso me permitió aprender a utilizar R para trabajar con datos, variables, vectores, matrices y funciones. También conocí diferentes herramientas para organizar y manipular información. Considero que fue un aprendizaje útil porque me ayudó a comprender mejor cómo la programación puede facilitar el análisis de datos y la resolución de problemas.</p></div></div></div></section>
+<section id="s9b" class="sec" data-s="s9b"><header class="sec-h"><span class="eyebrow">Semana 9</span><h2>Programación lineal</h2></header><h3 id="h21">Ejercicio 1. Reddy Mikks</h3>
+<h4 id="h22">1.1 Planteamiento del problema</h4>
+<p>La empresa Reddy Mikks produce dos tipos de pintura: pintura para exteriores (M1) y pintura para interiores (M2). Para su producción utiliza dos materias primas, A y B, cuyas disponibilidades diarias son limitadas.</p>
+<p>El objetivo es determinar cuántas toneladas de cada tipo de pintura deben producirse diariamente para maximizar la utilidad total, considerando la disponibilidad de materias primas y las restricciones de demanda.</p>
+<p class="lbl">Datos del problema</p>
+<div class="tablewrap"><table><thead><tr><th>Recurso</th><th>Pintura exterior (M1)</th><th>Pintura interior (M2)</th><th>Disponibilidad diaria</th></tr></thead><tbody><tr><td>Materia prima A</td><td>6</td><td>4</td><td>24</td></tr><tr><td>Materia prima B</td><td>1</td><td>2</td><td>6</td></tr><tr><td>Utilidad por tonelada</td><td>5</td><td>4</td><td>-</td></tr></tbody></table></div>
+<p>Además, se establecen las siguientes condiciones:</p>
+<ul class="list">
+<li>La demanda diaria de pintura para interiores no puede superar en más de una tonelada la demanda de pintura para exteriores.</li>
+<li>La demanda máxima diaria de pintura para interiores es de dos toneladas.</li>
+</ul>
+<h4 id="h23">1.2 Variables de decisión</h4>
+<p class="lbl">Se definen las siguientes variables:</p>
+<div class="eq">X1= Toneladas de pintura para exteriores</div>
+<div class="eq">X2= Toneladas de pintura para interiores</div>
+<p>Estas variables representan las cantidades de pintura que la empresa debe producir diariamente.</p>
+<p class="lbl">Función objetivo</p>
+<p>La empresa busca maximizar la utilidad total obtenida por la producción de ambos tipos de pintura.</p>
+<p>La utilidad por tonelada de pintura para exteriores es de 5 unidades monetarias, mientras que la utilidad por tonelada de pintura para interiores es de 4 unidades monetarias.</p>
+<p>Por lo tanto, la función objetivo es:</p>
+<div class="eq">Max Z=5X1 + 4X2</div>
+<p>Donde Z representa la utilidad total diaria.</p>
+<h4 id="h24">1.3 Restricciones del modelo</h4>
+<p class="lbl">Restricción 1. Materia prima A</p>
+<p>La disponibilidad diaria de materia prima A es de 24 toneladas.</p>
+<div class="eq">6 X1+ 4 X2 ≤ 24</div>
+<p class="lbl">Restricción 2. Materia prima B</p>
+<p>La disponibilidad diaria de materia prima B es de 6 toneladas.</p>
+<div class="eq">X1+2 X2 ≤ 6</div>
+<p class="lbl">Restricción 3. Demanda de pintura para interiores</p>
+<p>La producción de pintura para interiores no puede superar en más de una tonelada la producción de pintura para exteriores.</p>
+<div class="eq">X2 - X1≤1</div>
+<p class="lbl">Restricción 4. Demanda máxima de pintura para interiores</p>
+<div class="eq">X2≤2</div>
+<p class="lbl">Restricción 5. No negatividad</p>
+<p>Las cantidades producidas no pueden ser negativas.</p>
+<div class="eq">X1, X2 ≥ 0</div>
+<h4 id="h25">1.4 Modelo matemático completo</h4>
+<p>El modelo de programación lineal queda definido de la siguiente manera:</p>
+<p class="lbl">Maximizar:</p>
+<div class="eq">Z = 5 X1 + 4 X2</div>
+<p class="lbl">Sujeto a:</p>
+<div class="eq">6 X1 + 4 X2 ≤ 24</div>
+<div class="eq">X1 + 2 X2 ≤ 6</div>
+<div class="eq">-X1 + X2≤1</div>
+<div class="eq">X2 ≤ 2</div>
+<div class="eq">X1, X2 ≥ 0</div>
+<h4 id="h26">1.5 Representación gráfica de la solución usando R</h4>
+<p>Mediante el programa R se realizó la representación gráfica de las restricciones del modelo de programación lineal. La región sombreada en verde representa las combinaciones de producción que cumplen simultáneamente todas las restricciones establecidas.</p>
+<p>El gráfico permite identificar los puntos esquina de la región factible y determinar que la solución óptima se encuentra en las coordenadas (3; 1,5), donde se obtiene la mayor utilidad.</p>
+<figure class="fig"><img src="p35-0.jpg" width="1200" height="900" alt="Imagen: 1.5 Representación gráfica de la solución usando R" loading="lazy"></figure>
+<h4 id="h27">1.6 Interpretación de resultados</h4>
+<p>De acuerdo con los resultados obtenidos, la empresa Reddy Mikks debe producir diariamente 3 toneladas de pintura para exteriores y 1,5 toneladas de pintura para interiores.</p>
+<p>Esta combinación permite alcanzar una utilidad máxima de 21 unidades monetarias diarias, cumpliendo las restricciones de disponibilidad de materias primas y las condiciones de demanda.</p>
+<p>Por lo tanto, esta combinación representa la solución óptima del problema.</p>
+<h3 id="h28">Ejercicio 2. Granjas modelo</h3>
+<h4 id="h29">2.1. Planteamiento del problema</h4>
+<p>En Granjas Modelo se utiliza diariamente un mínimo de 800 libras de un alimento especial, elaborado mediante una mezcla de maíz y soya.</p>
+<p>Cada ingrediente contiene diferentes cantidades de proteínas y fibras, además de presentar distintos costos por libra.</p>
+<p>El alimento debe contener al menos un 30% de proteínas y un máximo de 5% de fibras.</p>
+<p>El objetivo es determinar cuántas libras de maíz y soya deben utilizarse diariamente para cumplir con los requerimientos nutricionales al menor costo posible.</p>
+<p class="lbl">Datos del problema</p>
+<div class="tablewrap"><table><thead><tr><th>Ingrediente</th><th>Proteínas (lb/lb)</th><th>Fibras (lb/lb)</th><th>Costo ($/lb)</th></tr></thead><tbody><tr><td>Maíz</td><td>0.09</td><td>0.02</td><td>0.30</td></tr><tr><td>Soya</td><td>0.60</td><td>0.06</td><td>0.90</td></tr></tbody></table></div>
+<p class="lbl">Condiciones:</p>
+<ul class="list">
+<li>Se deben producir al menos 800 libras diarias.</li>
+<li>El alimento debe contener como mínimo un 30% de proteínas.</li>
+<li>El contenido de fibras no puede superar el 5%.</li>
+<li>Se busca minimizar el costo total diario.</li>
+</ul>
+<h4 id="h30">2.2. Variables de decisión</h4>
+<p class="lbl">Se definen las siguientes variables:</p>
+<div class="eq">X1=Cantidad de libras de maíz</div>
+<div class="eq">X2=Cantidad de libras de soya</div>
+<p>Estas variables representan las cantidades de cada ingrediente que deben utilizarse para elaborar el alimento especial.</p>
+<h4 id="h31">2.3. Función objetivo</h4>
+<p>El objetivo de Granjas Modelo es minimizar el costo diario de producción del alimento.</p>
+<p>El costo por libra de maíz es de $0,30 y el costo por libra de soya es de $0,90.</p>
+<p>Por lo tanto, la función objetivo es:</p>
+<div class="eq">Min Z=0.30 X1 + 0.90 X2</div>
+<p>Donde Z representa el costo total diario de la mezcla.</p>
+<h4 id="h32">2.4. Restricciones del modelo</h4>
+<p class="lbl">Restricción 1. Cantidad mínima de alimento</p>
+<p>La empresa necesita producir al menos 800 libras de alimento diariamente.</p>
+<div class="eq">X1+X2≥800</div>
+<p class="lbl">Restricción 2. Contenido mínimo de proteínas</p>
+<p>El alimento debe contener al menos un 30% de proteínas.</p>
+<p>Como el maíz contiene un 9% de proteínas y la soya un 60%, se establece:</p>
+<div class="eq">0.09X1 + 0.60X2 ≥ 0.30(X1 + X2)</div>
+<p class="lbl">Desarrollando:</p>
+<div class="eq">0.09X1 + 0.60X2 ≥ 0.30X1 + 0.30X2</div>
+<p class="lbl">Agrupando términos:</p>
+<div class="eq">-0.21 X1 + 0.30 X2 ≥ 0</div>
+<p class="lbl">Por lo tanto:</p>
+<div class="eq">-0.21 X1 + 0.30X2 ≥ 0</div>
+<p class="lbl">Restricción 3. Contenido máximo de fibras</p>
+<p>El alimento puede contener como máximo un 5% de fibras.</p>
+<p>El maíz contiene un 2% de fibras y la soya un 6%.</p>
+<p class="lbl">Por lo tanto:</p>
+<div class="eq">0.02 X1 + 0.06 X2 ≤ 0.05(X1+X2)</div>
+<p class="lbl">Desarrollando:</p>
+<div class="eq">0.02 X1+0.06X2 ≤ 0.05 X1 + 0.05 X2</div>
+<p class="lbl">Agrupando términos:</p>
+<div class="eq">-0.03 X1 + 0.01 X2 ≤ 0</div>
+<p class="lbl">Por lo tanto:</p>
+<div class="eq">-0.03 X1 + 0.01 X2 ≤0</div>
+<p class="lbl">Restricción 4. No negatividad</p>
+<p>Las cantidades de maíz y soya no pueden ser negativas.</p>
+<div class="eq">X1, X2 ≥ 0</div>
+<h4 id="h33">2.5. Modelo matemático</h4>
+<p class="lbl">Minimizar:</p>
+<div class="eq">Z= 0.30 X1 + 0.90 X2</div>
+<p class="lbl">Sujeto a:</p>
+<div class="eq">X1+X2 ≥ 800</div>
+<div class="eq">-0.21X1+0.30X2≥0</div>
+<div class="eq">-0.03X1+0.01X2≤0</div>
+<div class="eq">X1,X2≥0</div>
+<p>Este modelo permite determinar las cantidades óptimas de maíz y soya que minimizan el costo de producción, cumpliendo los requerimientos nutricionales establecidos.</p>
+<h4 id="h34">2.6. Representación gráfica de la solución usando R</h4>
+<figure class="fig"><img src="p39-0.jpg" width="1200" height="900" alt="Imagen: 2.6. Representación gráfica de la solución usando R" loading="lazy"></figure>
+<h4 id="h35">2.7 Interpretación de resultados</h4>
+<p>Mediante la aplicación del modelo de programación lineal en R, se determinó que Granjas Modelo debe utilizar diariamente 470,59 libras de maíz y 329,41 libras de soya para elaborar el alimento especial.</p>
+<p>Esta combinación permite producir las 800 libras requeridas, cumpliendo con el contenido mínimo de 30% de proteínas y manteniendo el contenido de fibras por debajo del máximo permitido de 5%.</p>
+<p>El costo mínimo diario obtenido es de $437,65, por lo que esta combinación representa la solución óptima del problema.</p>
+<h3 id="h36">Ejercicio 3. Programas</h3>
+<h4 id="h37">3.1. Planteamiento del problema</h4>
+<p>Se tienen cuatro programas que deben ser asignados a cuatro procesadores para su ejecución. Cada programa requiere un tiempo diferente dependiendo del procesador al que sea asignado.</p>
+<p>El objetivo es determinar cómo distribuir los cuatro programas entre los cuatro procesadores, de manera que el tiempo total de ejecución sea el menor posible.</p>
+<p>Para ello, se utilizará un modelo de programación lineal que permita identificar la combinación de asignaciones más conveniente.</p>
+<p class="lbl">Datos del problema</p>
+<div class="tablewrap"><table><thead><tr><th>Programa</th><th>Procesador 1</th><th>Procesador 2</th><th>Procesador 3</th><th>Procesador 4</th></tr></thead><tbody><tr><td>Programa 1</td><td>65</td><td>73</td><td>63</td><td>57</td></tr><tr><td>Programa 2</td><td>67</td><td>70</td><td>65</td><td>58</td></tr><tr><td>Programa 3</td><td>68</td><td>72</td><td>69</td><td>55</td></tr><tr><td>Programa 4</td><td>66</td><td>75</td><td>70</td><td>59</td></tr></tbody></table></div>
+<p class="lbl">Condiciones:</p>
+<ul class="list">
+<li>Cada programa debe asignarse a un procesador.</li>
+<li>Cada procesador debe ejecutar un único programa.</li>
+<li>Los programas deben asignarse completamente, sin dividirse entre procesadores.</li>
+<li>Se busca minimizar el tiempo total de ejecución.</li>
+</ul>
+<h4 id="h38">3.2. Variables de decisión</h4>
+<p class="lbl">Se definen las siguientes variables:</p>
+<div class="eq">Xij = Asignación del programa i al procesador j</div>
+<p class="lbl">Donde:</p>
+<ul class="list">
+<li>i representa el programa (1, 2, 3 o 4).</li>
+<li>j representa el procesador (1, 2, 3 o 4).</li>
+</ul>
+<p class="lbl">Cada variable puede tomar los siguientes valores:</p>
+<div class="eq">Xij = 1 si el programa se asigna al procesador</div>
+<p class="lbl">0 si el programa no se asigna al procesador</p>
+<p class="lbl">Por ejemplo:</p>
+<p>X11=1: El programa 1 se asigna al procesador 1.</p>
+<p>X12=1: El programa 1 se asigna al procesador 2.</p>
+<p>X23=1: El programa 2 se asigna al procesador 3.</p>
+<p>Como existen cuatro programas y cuatro procesadores, se tienen 16 variables de decisión.</p>
+<p>Aunque las asignaciones son de naturaleza binaria, el ejercicio solicita resolver inicialmente el modelo considerando las variables como continuas y verificar si los resultados obtenidos son enteros.</p>
+<h4 id="h39">3.3. Función objetivo</h4>
+<p>El objetivo es minimizar el tiempo total necesario para ejecutar los cuatro programas.</p>
+<p>Cada asignación tiene un tiempo de ejecución específico, según los datos proporcionados.</p>
+<p>Por lo tanto, la función objetivo es:</p>
+<div class="eq">Minimizar Z = 65X11 + 73X12 + 63X13 + 57X14</div>
+<p class="lbl">67X21 + 70X22 + 65X23 + 58X24</p>
+<p class="lbl">68X31 + 72X32 + 69X33 + 55X34</p>
+<p class="lbl">66X41 + 75X42 + 70X43 + 59X44</p>
+<p>Esta función representa la suma de los tiempos de ejecución correspondientes a las asignaciones seleccionadas.</p>
+<p>El modelo buscará la combinación que permita obtener el menor tiempo total posible.</p>
+<h4 id="h40">3.4. Restricciones del modelo</h4>
+<p class="lbl">Restricción 1. Asignación de los programas</p>
+<p>Cada programa debe asignarse exactamente a un procesador.</p>
+<p class="lbl">Por lo tanto:</p>
+<p class="lbl">Programa 1:</p>
+<div class="eq">X11+X12+X13+X14=1</div>
+<p class="lbl">Programa 2:</p>
+<div class="eq">X21+X22+X23+X24=1</div>
+<p class="lbl">Programa 3:</p>
+<div class="eq">X31+X32+X33+X34=1</div>
+<p class="lbl">Programa 4:</p>
+<div class="eq">X41+X42+X43+X44=1</div>
+<p>Estas restricciones garantizan que todos los programas sean asignados.</p>
+<p class="lbl">Restricción 2. Capacidad de los procesadores</p>
+<p>Cada procesador debe ejecutar exactamente un programa.</p>
+<p class="lbl">Procesador 1:</p>
+<div class="eq">X11+X21+X31+X41=1</div>
+<p class="lbl">Procesador 2:</p>
+<div class="eq">X12+X22+X32+X42=1</div>
+<p class="lbl">Procesador 3:</p>
+<div class="eq">X13+X23+X33+X43=1</div>
+<p class="lbl">Procesador 4:</p>
+<div class="eq">X14+X24+X34+X44=1</div>
+<p>Estas restricciones permiten que cada procesador reciba únicamente un programa.</p>
+<p class="lbl">Restricción 3. No negatividad y límites de asignación</p>
+<p class="lbl">Las variables deben cumplir:</p>
+<div class="eq">0≤ Xij ≤ 1</div>
+<p>Esto significa que ninguna asignación puede tener un valor negativo ni superior a uno.</p>
+<p>Para seguir las instrucciones del ejercicio, inicialmente se utilizarán variables continuas. Posteriormente se verificará si la solución obtenida presenta valores enteros.</p>
+<h4 id="h41">3.5. Modelo matemático completo</h4>
+<p>El modelo de programación lineal queda definido de la siguiente manera:</p>
+<p class="lbl">Minimizar:</p>
+<div class="eq">Z = 65X11 + 73X12 + 63X13 + 57X14</div>
+<p class="lbl">67X21 + 70X22 + 65X23 + 58X24</p>
+<p class="lbl">68X31 + 72X32 + 69X33 + 55X34</p>
+<p class="lbl">66X41 + 75X42 + 70X43 + 59X44</p>
+<p class="lbl">Sujeto a:</p>
+<p class="lbl">Asignación de programas:</p>
+<div class="eq">X11 + X12 + X13 + X14 = 1</div>
+<div class="eq">X21 + X22 + X23 + X24 = 1</div>
+<div class="eq">X31 + X32 + X33 + X34 = 1</div>
+<div class="eq">X41 + X42 + X43 + X44 = 1</div>
+<p class="lbl">Capacidad de los procesadores:</p>
+<div class="eq">X11 + X21 + X31 + X41 = 1</div>
+<div class="eq">X12 + X22 + X32 + X42 = 1</div>
+<div class="eq">X13 + X23 + X33 + X43 = 1</div>
+<div class="eq">X14 + X24 + X34 + X44 = 1</div>
+<p class="lbl">No negatividad y límites:</p>
+<p class="lbl">0 ≤ Xij ≤ 1</p>
+<p>Este modelo permite encontrar la asignación de los cuatro programas a los cuatro procesadores que minimiza el tiempo total de ejecución, garantizando que cada programa sea asignado a un único procesador.</p>
+<h4 id="h42">3.6. Solución mediante R</h4>
+<p>Para resolver el problema se utilizó el programa R, aplicando un modelo de programación lineal con variables continuas.</p>
+<p>El programa permitió determinar la combinación de asignaciones que minimiza el tiempo total de ejecución, respetando las restricciones establecidas.</p>
+<p class="lbl">Los resultados obtenidos fueron los siguientes:</p>
+<div class="tablewrap"><table><thead><tr><th>Programa</th><th>Procesador asignado</th><th>Tiempo de ejecución</th></tr></thead><tbody><tr><td>Programa 1</td><td>Procesador 3</td><td>63</td></tr><tr><td>Programa 2</td><td>Procesador 2</td><td>70</td></tr><tr><td>Programa 3</td><td>Procesador 4</td><td>55</td></tr><tr><td>Programa 4</td><td>Procesador 1</td><td>66</td></tr><tr><td>Total</td><td></td><td>254</td></tr></tbody></table></div>
+<p class="lbl">El tiempo mínimo de ejecución es: 254</p>
+<p class="lbl">Verificación de las variables enteras</p>
+<p>Aunque el modelo se resolvió utilizando variables continuas, los resultados obtenidos fueron valores enteros de 0 y 1.</p>
+<p>Esto significa que cada programa fue asignado completamente a un procesador, sin necesidad de dividir su ejecución entre varios procesadores.</p>
+<p>Por lo tanto, la solución cumple con las condiciones establecidas en el ejercicio.</p>
+<figure class="fig shot"><img src="p46-0.jpg" width="1500" height="974" alt="Imagen: Verificación de las variables enteras" loading="lazy"></figure>
+<h4 id="h43">3.7. Interpretación de resultados</h4>
+<p>Mediante la aplicación del modelo de programación lineal en R, se determinó que la mejor distribución consiste en asignar el programa 1 al procesador 3, el programa 2 al procesador 2, el programa 3 al procesador 4 y el programa 4 al procesador 1.</p>
+<p>Con esta combinación se obtiene un tiempo mínimo total de ejecución de 254 unidades de tiempo, cumpliendo con la condición de que cada procesador ejecute únicamente un programa.</p>
+<p>Además, se comprobó que, aunque el modelo se resolvió utilizando variables continuas, todas las asignaciones obtenidas fueron enteras.</p>
+<p>Por lo tanto, esta distribución representa la solución óptima del problema.</p>
+<h3 id="h44">Ejercicio 4. Inversión en la bolsa</h3>
+<h4 id="h45">4.1. Planteamiento del problema</h4>
+<p>Un grupo de estudiantes de computación ha reunido un total de $250.000 para invertir en acciones de diferentes empresas.</p>
+<p>Existen siete empresas disponibles para realizar la inversión. Cada una presenta un costo diferente por sus acciones y una rentabilidad mensual determinada.</p>
+<p>El objetivo es identificar cómo distribuir el dinero disponible entre las empresas, de manera que se obtenga la mayor rentabilidad mensual posible, sin superar el presupuesto establecido.</p>
+<p class="lbl">Datos del problema</p>
+<div class="tablewrap"><table><thead><tr><th>Empresa</th><th>Costo ($)</th><th>Rentabilidad mensual ($)</th></tr></thead><tbody><tr><td>A</td><td>145.000</td><td>20.000</td></tr><tr><td>B</td><td>92.000</td><td>17.000</td></tr><tr><td>C</td><td>70.000</td><td>15.000</td></tr><tr><td>D</td><td>70.000</td><td>15.000</td></tr><tr><td>E</td><td>84.000</td><td>10.000</td></tr><tr><td>F</td><td>15.000</td><td>8.000</td></tr><tr><td>G</td><td>47.000</td><td>5.000</td></tr></tbody></table></div>
+<p class="lbl">Condiciones</p>
+<ul class="list">
+<li>El presupuesto máximo disponible es de $250.000.</li>
+<li>Cada empresa presenta un costo y una rentabilidad mensual diferentes, aunque C y D tienen los mismos valores.</li>
+<li>Se busca maximizar la rentabilidad mensual total.</li>
+<li>El modelo se resolverá mediante programación lineal.</li>
+</ul>
+<h4 id="h46">4.2. Variables de decisión</h4>
+<p class="lbl">Se definen las siguientes variables:</p>
+<p>X1: Cantidad de inversión en acciones de la empresa A.</p>
+<p>X2: Cantidad de inversión en acciones de la empresa B.</p>
+<p>X3: Cantidad de inversión en acciones de la empresa C.</p>
+<p>X4: Cantidad de inversión en acciones de la empresa D.</p>
+<p>X5: Cantidad de inversión en acciones de la empresa E.</p>
+<p>X6: Cantidad de inversión en acciones de la empresa F.</p>
+<p>X7: Cantidad de inversión en acciones de la empresa G.</p>
+<p>Para formular el modelo, cada variable representa la cantidad de paquetes de acciones adquiridos de la empresa correspondiente, donde un paquete tiene el costo y la rentabilidad indicados en la tabla.</p>
+<p>Se consideran variables continuas y no negativas, de acuerdo con el enfoque de programación lineal.</p>
+<h4 id="h47">4.3. Función objetivo</h4>
+<p>El objetivo es maximizar la rentabilidad mensual obtenida mediante la inversión en acciones de las siete empresas disponibles.</p>
+<p>Cada empresa ofrece una rentabilidad mensual diferente, por lo que se busca determinar la cantidad de paquetes de acciones que deben adquirirse para obtener el mayor beneficio posible.</p>
+<p>Por lo tanto, la función objetivo es:</p>
+<p class="lbl">Maximizar:</p>
+<div class="eq">Z= 20000 X1+17000 X2+15000 X3+15000 X4+10000 X5+8000 X6+5000 X7</div>
+<p>Donde Z representa la rentabilidad mensual total de la inversión.</p>
+<p>Esta función permite calcular la rentabilidad obtenida según la cantidad de paquetes de acciones adquiridos de cada empresa.</p>
+<h4 id="h48">4.4. Restricciones del modelo</h4>
+<p class="lbl">Restricción 1. Presupuesto disponible</p>
+<p>Los estudiantes cuentan con un presupuesto máximo de $250.000 para realizar las inversiones.</p>
+<p>Cada empresa tiene un costo diferente por paquete de acciones, por lo que la suma de todas las inversiones no puede superar el dinero disponible.</p>
+<p class="lbl">Por lo tanto:</p>
+<p>145000 X1 + 92000 X2 + 70000 X3 + 70000 X4 + 84000 X5 + 15000 X6 + 47000 X7 &lt;= 250000</p>
+<p>Esta restricción garantiza que el dinero utilizado en las inversiones no supere el presupuesto establecido.</p>
+<p class="lbl">Restricción 2. No negatividad</p>
+<p>Las cantidades de paquetes de acciones adquiridos no pueden ser negativas.</p>
+<p class="lbl">Por lo tanto:</p>
+<div class="eq">X1, X2, X3, X4, X5, X6, X7 ≥ 0</div>
+<p>Las variables se consideran continuas, por lo que pueden tomar valores decimales.</p>
+<h4 id="h49">4.5. Modelo matemático completo</h4>
+<p>El modelo de programación lineal queda definido de la siguiente manera:</p>
+<p class="lbl">Maximizar:</p>
+<p>Z = 20000 X1 + 17000 X2 + 15000 X3 + 15000 X4 + 10000 X5 + 8000 X6 + 5000 X7</p>
+<p class="lbl">Sujeto a:</p>
+<p class="lbl">Restricción presupuestaria:</p>
+<p>145000 X1 + 92000 X2 + 70000 X3 + 70000 X4 + 84000 X5 + 15000 X6 + 47000 X7 &lt;= 250000</p>
+<p class="lbl">No negatividad:</p>
+<div class="eq">X1, X2, X3, X4, X5, X6, X7 ≥ 0</div>
+<p>Este modelo permite determinar la combinación de inversiones que maximiza la rentabilidad mensual, respetando el presupuesto disponible.</p>
+<h4 id="h50">4.6. Solución mediante R</h4>
+<p>Para resolver el problema se utilizó el programa R, aplicando un modelo de programación lineal con variables continuas.</p>
+<p>El programa permite determinar cómo distribuir el presupuesto disponible entre las siete empresas para obtener la mayor rentabilidad mensual posible.</p>
+<p>Los resultados obtenidos mediante R indican que la mejor alternativa consiste en invertir todo el presupuesto disponible en la empresa F.</p>
+<p>La distribución óptima de la inversión es la siguiente:</p>
+<div class="tablewrap"><table><thead><tr><th>Empresa</th><th>Cantidad de paquetes</th></tr></thead><tbody><tr><td>A</td><td>0</td></tr><tr><td>B</td><td>0</td></tr><tr><td>C</td><td>0</td></tr><tr><td>D</td><td>0</td></tr><tr><td>E</td><td>0</td></tr><tr><td>F</td><td>16,66667</td></tr><tr><td>G</td><td>0</td></tr></tbody></table></div>
+<p>De acuerdo con estos resultados, se deben adquirir aproximadamente 16,67 paquetes de acciones de la empresa F, mientras que no se recomienda invertir en las demás empresas.</p>
+<p class="lbl">Verificación del presupuesto utilizado</p>
+<p>Para comprobar que la solución cumple con la restricción presupuestaria, se calcula la inversión total:</p>
+<div class="eq">Inversión total = 15000 × 16,66667</div>
+<div class="eq">Inversión total ≈ $250.000</div>
+<p>Por lo tanto, se utiliza la totalidad del presupuesto disponible, sin superar el límite establecido.</p>
+<p class="lbl">Rentabilidad mensual máxima</p>
+<p>La empresa F ofrece una rentabilidad mensual de $8.000 por paquete de acciones. Por lo tanto:</p>
+<div class="eq">Z = 8000 × 16,66667</div>
+<div class="eq">Z ≈ $133.333,33</div>
+<p>Esto significa que la rentabilidad mensual máxima que puede obtenerse con el presupuesto disponible es de aproximadamente $133.333,33.</p>
+<figure class="fig shot"><img src="p52-0.jpg" width="1500" height="974" alt="Imagen: Rentabilidad mensual máxima" loading="lazy"></figure>
+<h4 id="h51">4.7. Interpretación de resultados</h4>
+<p>Mediante la aplicación del modelo de programación lineal en R, se determinó que la mejor decisión es invertir los $250.000 disponibles en la empresa F.</p>
+<p>Esta empresa presenta la mayor rentabilidad en relación con su costo, por lo que resulta más conveniente que las demás alternativas.</p>
+<p>La solución indica que deben adquirirse aproximadamente 16,67 paquetes de acciones de la empresa F, obteniendo una rentabilidad mensual máxima de $133.333,33.</p>
+<p>Además, se comprobó que la inversión utiliza la totalidad del presupuesto disponible y cumple con las restricciones establecidas. Por lo tanto, esta distribución representa la solución óptima del problema.</p>
+<div class="eval" id="s9b-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Resolví cuatro ejercicios de programación lineal: Reddy Mikks, Granjas Modelo, asignación de programas a procesadores e inversión en la bolsa. Para cada uno planteé las variables, la función objetivo y las restricciones, utilizando R para encontrar las soluciones óptimas.</p></div><div><h5>Valoración de lo aprendido</h5><p>Con estos ejercicios aprendí a representar problemas reales mediante modelos matemáticos y a buscar soluciones que permitan aprovechar mejor los recursos. Comprendí cómo plantear correctamente las restricciones y utilizar R para maximizar ganancias o minimizar costos y tiempos. Además, pude ver que la programación lineal se puede aplicar a situaciones muy diferentes, desde la producción hasta las inversiones.</p></div></div></div></section>
+<section id="s11" class="sec" data-s="s11"><header class="sec-h"><span class="eyebrow">Semana 11</span><h2>Método Simplex</h2></header><h3 id="h52">Ejercicio 1</h3>
+<p class="lbl">Planteamiento del problema (diapositiva 15)</p>
+<p class="lbl">Función objetivo:</p>
+<div class="eq">Maximizar Z = 10X1 + 15X2 + 5X3</div>
+<p class="lbl">Sujeto a las restricciones:</p>
+<div class="eq">2X1 + X2 ≤ 6000</div>
+<div class="eq">3X1 + 3X2 + X3 ≤ 9000</div>
+<div class="eq">X1 + 2X2 + 2X3 ≤ 4000</div>
+<p class="lbl">No negatividad:</p>
+<div class="eq">X1, X2, X3 ≥ 0</div>
+<p class="lbl">Tabla inicial del método Simplex</p>
+<figure class="fig"><img src="p54-0.jpg" width="1226" height="804" alt="Imagen: Tabla inicial del método Simplex" loading="lazy"></figure>
+<p class="lbl">Solución obtenida en R</p>
+<figure class="fig shot"><img src="p55-0.jpg" width="1500" height="974" alt="Imagen: Solución obtenida en R" loading="lazy"></figure>
+<p>Al ejecutar el modelo utilizando la biblioteca lpSolve, se obtuvo la siguiente solución óptima:</p>
+<div class="eq">X1 = 2000
+X2 = 1000
+X3 = 0</div>
+<p class="lbl">Valor máximo de la función objetivo: Z = 35 000.</p>
+<p class="lbl">Interpretación</p>
+<p>La solución óptima se alcanza cuando X1 = 2000, X2 = 1000 y X3 = 0, obteniendo un valor máximo de 35 000 y cumpliendo con las restricciones del modelo.</p>
+<h3 id="h53">Ejercicio 2</h3>
+<p class="lbl">Planteamiento del problema (diapositiva 17)</p>
+<p class="lbl">Función objetivo:</p>
+<div class="eq">Maximizar Z = 10X1 + 10X2</div>
+<p class="lbl">Sujeto a las restricciones:</p>
+<div class="eq">X1 ≤ 2</div>
+<div class="eq">X2 ≤ 3</div>
+<div class="eq">-X1 + X2 ≤ 2</div>
+<p class="lbl">No negatividad:</p>
+<div class="eq">X1, X2 ≥ 0</div>
+<p class="lbl">Forma tabular</p>
+<figure class="fig"><img src="p56-0.jpg" width="1500" height="983" alt="Imagen: Forma tabular" loading="lazy"></figure>
+<p class="lbl">Solución obtenida en R</p>
+<figure class="fig shot"><img src="p57-0.jpg" width="1500" height="974" alt="Imagen: Solución obtenida en R" loading="lazy"></figure>
+<p>Al ejecutar el modelo utilizando la biblioteca lpSolve, se obtuvo la siguiente solución óptima:</p>
+<div class="eq">X1 = 2</div>
+<div class="eq">X2 = 3</div>
+<p class="lbl">Valor máximo de la función objetivo: Z = 50.</p>
+<p class="lbl">Interpretación</p>
+<p>La solución óptima se alcanza cuando X1 = 2 y X2 = 3, obteniendo un valor máximo de 50 y cumpliendo con todas las restricciones del modelo.</p>
+<h3 id="h54">Ejercicio 3</h3>
+<p class="lbl">Planteamiento del problema (diapositiva 19)</p>
+<p class="lbl">Función objetivo:</p>
+<p class="lbl">Maximizar:</p>
+<div class="eq">Z=15 X1+10 X2</div>
+<p class="lbl">Sujeto a las restricciones:</p>
+<div class="eq">X1 ≤ 2</div>
+<div class="eq">X2 ≤ 2</div>
+<div class="eq">X1+X2 ≤ 4</div>
+<p class="lbl">No negatividad:</p>
+<div class="eq">X1,X2≥ 0</div>
+<p class="lbl">Forma tabular</p>
+<p class="lbl">----------------------------------------------</p>
+<p class="lbl">i BVS x1 x2 s1 s2 s3 RHS</p>
+<p class="lbl">----------------------------------------------</p>
+<p class="lbl">0 z -15 -10 0 0 0 0</p>
+<p class="lbl">1 s1 1 0 1 0 0 2</p>
+<p class="lbl">2 s2 0 1 0 1 0 2</p>
+<p class="lbl">3 s3 1 1 0 0 1 4</p>
+<p class="lbl">--------------------------------------------</p>
+<p class="lbl">Solución obtenida en R</p>
+<figure class="fig shot"><img src="p59-0.jpg" width="1500" height="974" alt="Imagen: Solución obtenida en R" loading="lazy"></figure>
+<p>Al ejecutar el modelo utilizando la biblioteca lpSolve, se obtuvo la siguiente solución óptima:</p>
+<ul class="list">
+<li>X1 = 2</li>
+<li>X2 = 2</li>
+</ul>
+<p class="lbl">Valor máximo de la función objetivo: Z = 50.</p>
+<p class="lbl">Interpretación</p>
+<p>La solución óptima se alcanza cuando X1 = 2 y X2 = 2, obteniendo un valor máximo de 50 y cumpliendo con todas las restricciones del modelo.</p>
+<h3 id="h55">Ejercicio 4</h3>
+<p class="lbl">Función objetivo:</p>
+<p class="lbl">Maximizar:</p>
+<div class="eq">Z = 15X1 + 10X2</div>
+<p class="lbl">Sujeto a las siguientes restricciones:</p>
+<div class="eq">X1 ≤ 2</div>
+<div class="eq">X1 - X2 ≤ 0</div>
+<div class="eq">X1, X2 ≥ 0</div>
+<p class="lbl">Forma tabular</p>
+<div class="tablewrap"><table><thead><tr><th>Restricción</th><th>X1</th><th>X2</th><th>Signo</th><th>Lado derecho</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>0</td><td>&lt;=</td><td>2</td></tr><tr><td>2</td><td>1</td><td>-1</td><td>&lt;=</td><td>0</td></tr></tbody></table></div>
+<p class="lbl">Coeficientes de la función objetivo</p>
+<div class="tablewrap"><table><thead><tr><th>Variable</th><th>X1</th><th>X2</th></tr></thead><tbody><tr><td>Maximizar Z</td><td>15</td><td>10</td></tr></tbody></table></div>
+<p class="lbl">Resultados obtenidos en R</p>
+<figure class="fig shot"><img src="p61-0.jpg" width="1500" height="974" alt="Imagen: Resultados obtenidos en R" loading="lazy"></figure>
+<p>Al ejecutar el modelo mediante la biblioteca lpSolve, se obtuvo:</p>
+<p>Estado del modelo: 3 (solución no acotada).</p>
+<p>Valor máximo de Z: No existe un máximo finito.</p>
+<p>Variables de decisión: No se obtiene una solución óptima finita.</p>
+<p>En este caso aunque R muestra X1 = 0 y X2 = 0, estos valores no representan la solución óptima. El programa los muestra porque no encontró un máximo finito.</p>
+<p class="lbl">Interpretación de resultados</p>
+<p>Al resolver el modelo en R, se obtuvo una solución no acotada, debido a que no existe una restricción que limite el valor máximo de X2. Por esta razón, la función objetivo puede aumentar indefinidamente y no es posible determinar un valor máximo para Z.</p>
+<h3 id="h56">Ejercicio 5. Programas y procesadores</h3>
+<p class="lbl">Planteamiento del problema</p>
+<p>Se tienen cuatro programas que deben asignarse a cuatro procesadores. Cada programa tiene un tiempo de ejecución diferente según el procesador utilizado. El objetivo es determinar la asignación que permita minimizar el tiempo total de ejecución.</p>
+<p class="lbl">Datos del problema:</p>
+<figure class="fig"><img src="p62-0.jpg" width="1272" height="370" alt="Imagen: Datos del problema:" loading="lazy"></figure>
+<p class="lbl">Forma tabular</p>
+<p>Función objetivo: Minimizar el tiempo total de ejecución.</p>
+<p class="lbl">Variables de decisión:</p>
+<p>Xij = 1 si el programa i se asigna al procesador j; 0 en caso contrario.</p>
+<figure class="fig narrow"><img src="p62-1.jpg" width="1046" height="170" alt="Imagen: Variables de decisión:" loading="lazy"></figure>
+<p>Además, cada procesador debe recibir exactamente un programa.</p>
+<p>Condiciones: Xij ≥ 0. El modelo se resolverá con variables continuas, como solicita el profesor, para comprobar si la solución obtenida es entera.</p>
+<p class="lbl">Interpretación de resultados en R</p>
+<figure class="fig shot"><img src="p63-0.jpg" width="1500" height="974" alt="Imagen: Interpretación de resultados en R" loading="lazy"></figure>
+<p>El modelo permitió determinar la asignación óptima de los cuatro programas a los procesadores, obteniendo un tiempo mínimo total de 254. Además, se comprobó que las asignaciones son enteras, aunque el modelo se resolvió utilizando variables continuas.</p>
+<h3 id="h57">Ejercicio 6 - Inversión en la bolsa</h3>
+<p class="lbl">Planteamiento del problema</p>
+<p>Un grupo de estudiantes dispone de $250.000 para invertir en acciones de siete empresas. Cada empresa presenta un costo y una rentabilidad mensual diferente. El objetivo es determinar cómo distribuir el dinero disponible para maximizar la rentabilidad mensual.</p>
+<p class="lbl">Datos del problema:</p>
+<figure class="fig narrow"><img src="p64-0.jpg" width="888" height="536" alt="Imagen: Datos del problema:" loading="lazy"></figure>
+<p class="lbl">Variables de decisión</p>
+<p>X1, X2, X3, X4, X5, X6 y X7 representan las cantidades de paquetes de acciones que se adquirirán de cada empresa.</p>
+<p class="lbl">Función objetivo</p>
+<p class="lbl">Maximizar:</p>
+<p class="lbl">Z = 20000 X1 + 17000 X2 + 15000 X3 + 15000 X4 + 10000 X5 + 8000 X6 + 5000 X7</p>
+<p class="lbl">Restricciones</p>
+<p class="lbl">Presupuesto disponible:</p>
+<p>145000 X1 + 92000 X2 + 70000 X3 + 70000 X4 + 84000 X5 + 15000 X6 + 47000 X7 &lt;= 250000</p>
+<p class="lbl">No negatividad:</p>
+<div class="eq">X1, X2, X3, X4, X5, X6, X7 ≥ 0</div>
+<p class="lbl">Forma tabular</p>
+<figure class="fig narrow"><img src="p64-1.jpg" width="940" height="100" alt="Imagen: Forma tabular" loading="lazy"></figure>
+<p>Condición: Todas las variables deben ser mayores o iguales a cero.</p>
+<p class="lbl">Resultados obtenidos</p>
+<figure class="fig shot"><img src="p65-0.jpg" width="1500" height="974" alt="Imagen: Resultados obtenidos" loading="lazy"></figure>
+<p class="lbl">Solución óptima esperada:</p>
+<div class="eq">Z = 133333,33</div>
+<div class="tablewrap"><table><thead><tr><th>Empresa</th><th>Cantidad de paquetes</th></tr></thead><tbody><tr><td>A</td><td>0</td></tr><tr><td>B</td><td>0</td></tr><tr><td>C</td><td>0</td></tr><tr><td>D</td><td>0</td></tr><tr><td>E</td><td>0</td></tr><tr><td>F</td><td>16,6667</td></tr><tr><td>G</td><td>0</td></tr></tbody></table></div>
+<p class="lbl">Verificación del presupuesto:</p>
+<div class="eq">15000 × 16,6667 ≈ 250000</div>
+<p class="lbl">Rentabilidad mensual máxima:</p>
+<div class="eq">8000 × 16,6667 ≈ 133333,33</div>
+<p>El modelo permite comprar cantidades fraccionarias de paquetes de acciones. Por eso se obtiene una solución de 16,6667 para la empresa F. Si se exigieran paquetes completos, habría que utilizar programación entera y el resultado sería diferente.</p>
+<p class="lbl">Interpretación de resultados</p>
+<p>El resultado obtenido indica que la mejor opción es invertir los $250.000 disponibles en la empresa F, adquiriendo aproximadamente 16,67 paquetes de acciones. Con esta inversión se obtiene una rentabilidad mensual máxima de $133.333,33. Por lo tanto, esta alternativa permite aprovechar todo el presupuesto y obtener la mayor rentabilidad posible según el modelo planteado.</p>
+<div class="eval" id="s11-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Resolví seis ejercicios relacionados con el método Simplex, planteando funciones objetivo, restricciones y tablas iniciales. También utilicé R y la biblioteca lpSolve para obtener e interpretar los resultados de los diferentes problemas.</p></div><div><h5>Valoración de lo aprendido</h5><p>Estos ejercicios me ayudaron a comprender mejor cómo funciona el método Simplex y cómo se utiliza para encontrar soluciones óptimas. Aprendí a organizar los problemas en forma tabular y a interpretar los resultados obtenidos en R. También comprendí que algunos problemas pueden tener soluciones no acotadas y que es importante revisar las restricciones antes de tomar una decisión.</p></div></div></div></section>
+<section id="s12" class="sec" data-s="s12"><header class="sec-h"><span class="eyebrow">Semana 12</span><h2>Presentación: problemas de transporte</h2></header><a class="btn" href="https://canva.link/wg6hdk4bvbykh24" target="_blank" rel="noopener">Abrir la presentación en Canva ↗</a>
+<div class="eval" id="s12-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Realicé una presentación sobre los problemas de transporte y asignación en programación lineal, explicando sus principales características, diferencias y aplicaciones.</p></div><div><h5>Valoración de lo aprendido</h5><p>Con esta presentación aprendí a diferenciar los problemas de transporte y asignación. Comprendí que los primeros buscan distribuir productos de la manera más eficiente, mientras que los segundos se enfocan en asignar tareas a diferentes recursos. También entendí cómo estos modelos pueden ayudar a las empresas a optimizar sus recursos y tomar mejores decisiones.</p></div></div></div></section>
+<section id="s15" class="sec" data-s="s15"><header class="sec-h"><span class="eyebrow">Semana 15</span><h2>Ensayo: cadenas de Markov</h2></header><h3 id="s15-ensayo">La matemática detrás de las búsquedas en Google</h3>
+<p>El video La Extraña Matemática Que Predice (Casi) Todo, de Veritasium en español, explica cómo las matemáticas pueden utilizarse para comprender y predecir diferentes situaciones de la vida cotidiana. Uno de los temas principales son las cadenas de Markov, que permiten analizar la probabilidad de que ocurra un evento tomando en cuenta el estado actual de una situación. Lo que más me llamó la atención fue conocer cómo este concepto matemático llegó a utilizarse en algo tan común como las búsquedas en Google, ya que es una herramienta que utilizamos constantemente, pero pocas veces pensamos en todo lo que hay detrás de su funcionamiento.</p>
+<p>Una de las aplicaciones más interesantes que se explican en el video es la relación entre las cadenas de Markov y el algoritmo PageRank, que fue desarrollado para ayudar a ordenar las páginas web según su importancia.</p>
+<p>Antes de conocer esta historia, nunca me había preguntado cómo Google decide cuáles páginas mostrar primero cuando realizamos una búsqueda. Normalmente, uno escribe lo que necesita y espera que los primeros resultados sean los más útiles, sin pensar en que existe un proceso matemático que ayuda a determinar ese orden.</p>
+<p>Lo interesante de PageRank es que utiliza los enlaces entre páginas web para calcular cuáles pueden considerarse más importantes. Para entenderlo, se puede imaginar a una persona que navega por Internet y pasa de una página a otra siguiendo enlaces de manera aleatoria. A partir de las probabilidades de esos movimientos, es posible estimar cuáles páginas tienen mayores posibilidades de ser visitadas. De esta manera, las cadenas de Markov permiten analizar el comportamiento de ese usuario imaginario y establecer una clasificación de las páginas.</p>
+<p>Esta historia me impresionó porque demuestra que un concepto matemático que inicialmente puede parecer complicado o muy teórico puede terminar teniendo una aplicación que transforma la manera en que utilizamos la tecnología. Me parece curioso que algo que comenzó como un estudio de probabilidades pudiera convertirse en una herramienta tan importante para organizar la información en Internet. Además, me hizo pensar que muchas de las tecnologías que utilizamos diariamente funcionan gracias a modelos matemáticos que normalmente desconocemos.</p>
+<p>En la actualidad, este tipo de modelos sigue siendo muy importante, especialmente porque vivimos en una época en la que tenemos acceso a enormes cantidades de información. Las cadenas de Markov no solamente pueden aplicarse al análisis de páginas web, sino también al estudio de diferentes procesos en los que existen probabilidades de pasar de una situación a otra. Por ejemplo, pueden utilizarse para analizar comportamientos, estudiar sistemas y ayudar a realizar predicciones a partir de ciertos datos.</p>
+<p>También considero que este tema tiene una relación importante con el curso, porque demuestra cómo las matemáticas pueden ayudarnos a analizar situaciones en las que existe incertidumbre. Muchas veces no podemos saber con seguridad qué va a suceder, pero sí podemos utilizar probabilidades para comprender mejor los posibles resultados y tomar decisiones más fundamentadas. Esto es algo que puede aplicarse tanto en las empresas como en la tecnología y en muchas otras áreas.</p>
+<p>En conclusión, lo que más me gustó de esta historia fue descubrir que detrás de una acción tan sencilla como buscar información en Google existe un modelo matemático que ayuda a organizar los resultados. El video me permitió comprender que las matemáticas no se limitan a resolver ejercicios, sino que también tienen aplicaciones muy importantes en nuestra vida diaria. Además, me dejó como aprendizaje que no siempre es necesario conocer con certeza lo que va a ocurrir para poder analizar una situación, ya que las probabilidades también nos permiten encontrar patrones y tomar mejores decisiones.</p>
+<div class="eval" id="s15-eval"><div class="eval-head"><span class="eyebrow">Autoevaluación</span><div class="score"><b>100</b><small>/ 100</small></div></div>
+<div class="eval-grid"><div><h5>Actividades desarrolladas</h5><p>Observé el video de Veritasium sobre las cadenas de Markov y elaboré un ensayo relacionado con su aplicación en el algoritmo PageRank de Google y su importancia en la toma de decisiones.</p></div><div><h5>Valoración de lo aprendido</h5><p>Esta actividad me permitió comprender cómo las cadenas de Markov utilizan probabilidades para analizar diferentes situaciones. Me pareció muy interesante descubrir cómo se aplican en algo tan cotidiano como las búsquedas de Google. Además, aprendí que los modelos matemáticos no solamente sirven para resolver ejercicios, sino que también tienen aplicaciones importantes en la tecnología y en la toma de decisiones.</p></div></div></div></section>
+<section id="bib" class="sec" data-s="bib"><header class="sec-h"><span class="eyebrow">Referencias</span><h2>Bibliografía</h2></header><p>Veritasium en español. (2025, 23 de agosto). La extraña matemática que predice (casi) todo [Video]. YouTube. <a href="https://www.youtube.com/watch?v=6pO6Mm2qJaE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=6pO6Mm2qJaE</a></p></section>
+
+    <footer class="foot">Portafolio de Mariángel Monge Marín · Modelo de toma de decisiones · Prof. Federico Torres Carballo · Segundo semestre 2026</footer>
+  </div>
+</main>
+<div class="lb" id="lb" role="dialog" aria-label="Imagen ampliada"><img alt=""></div>
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  function go(id){var el=id==='top'?document.body:document.getElementById(id);if(!el)return;document.body.classList.remove('menu');
+    var y=id==='top'?0:el.getBoundingClientRect().top+window.pageYOffset-(window.innerWidth<=1000?58:14);
+    window.scrollTo({top:y,behavior:'smooth'});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');
+    if(a){e.preventDefault();go(a.getAttribute('href').slice(1));return;}
+    var im=e.target.closest('.fig img');
+    if(im){var lb=$('#lb');$('img',lb).src=im.src;lb.classList.add('on');return;}
+    if(e.target.closest('#lb')){$('#lb').classList.remove('on');}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){$('#lb').classList.remove('on');document.body.classList.remove('menu');}});
+  $('#menuBtn').addEventListener('click',function(){document.body.classList.toggle('menu')});
+  $('#scrim').addEventListener('click',function(){document.body.classList.remove('menu')});
+  /* scrollspy */
+  var secs=$$('section[id]'),h3s=$$('main h3[id],main h4[id]').filter(function(h){return h.tagName==='H3'});
+  var links={};$$('.nav [data-t]').forEach(function(a){links[a.getAttribute('data-t')]=a});
+  var titleEl=$('#curTitle');
+  function spy(){
+    var y=window.pageYOffset+120,cur=secs[0];
+    secs.forEach(function(s){if(s.offsetTop<=y)cur=s});
+    var sub=null;h3s.forEach(function(h){if(cur.contains(h)&&h.getBoundingClientRect().top+window.pageYOffset<=y)sub=h});
+    $$('.nav .on').forEach(function(a){a.classList.remove('on')});
+    $$('.navgroup.open').forEach(function(g){g.classList.remove('open')});
+    var l=links[cur.id];if(l){l.classList.add('on');var g=l.closest('.navgroup');if(g)g.classList.add('open');}
+    if(sub&&links[sub.id])links[sub.id].classList.add('on');
+    if(l&&titleEl)titleEl.textContent=l.textContent;
+  }
+  var t=null;window.addEventListener('scroll',function(){if(t)return;t=setTimeout(function(){t=null;spy()},80)},{passive:true});
+  spy();
+})();
+</script>
+</body>
+</html>
